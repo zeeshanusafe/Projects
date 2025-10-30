@@ -529,63 +529,63 @@
     
     <!-- Custom JavaScript -->
     <script>
-        // Airlines data (with local images)
-        const airlines = [
-            {
-                name: "Air India",
-                logo: "https://drive.google.com/file/d/1qS7HS-2c2H1hyWR_5kuqE5rvVgTHVugq/view?usp=sharing",
-                checkin: "https://www.airindia.com/in/en/manage/web-checkin.html",
-                status: "https://www.airindia.com/in/en/manage/flight-status.html"
-            },
-            {
-                name: "IndiGo",
-                logo: "https://drive.google.com/file/d/1Kk9d_dKXCk-0egGvUNH3mCuGgKxPOW75/view?usp=sharing",
-                checkin: "https://www.goindigo.in/web-check-in.html",
-                status: "https://www.goindigo.in/flight-status.html"
-            },
-            {
-                name: "Lufthansa",
-                logo: "https://drive.google.com/file/d/1xnSha-MQZWbptTchvbB_nMlSjZD21gjF/view?usp=sharing",
-                checkin: "https://www.lufthansa.com/in/en/online-check-in",
-                status: "https://www.lufthansa.com/in/en/flight-status"
-            },
-            {
-                name: "SpiceJet",
-                logo: "https://drive.google.com/file/d/1Ifn4Vi-YL6bbmd8v0saSYSrS-FHwyLXc/view?usp=sharing",
-                checkin: "https://book.spicejet.com/",
-                status: "https://book.spicejet.com/SearchFlight.aspx"
-            },
-            {
-                name: "Air Asia",
-                logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/AirAsia_New_Logo.svg/300px-AirAsia_New_Logo.svg.png",
-                checkin: "https://www.airasia.com/check-in",
-                status: "https://www.airasia.com/flightstatus/en/GB"
-            },
-            {
-                name: "Emirates",
-                logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Emirates_logo.svg/300px-Emirates_logo.svg.png",
-                checkin: "https://www.emirates.com/english/manage-booking/online-check-in/",
-                status: "https://www.emirates.com/english/manage-booking/flight-status/"
-            },
-            {
-                name: "Qatar Airways",
-                logo: "https://upload.wikimedia.org/wikipedia/en/thumb/9/9b/Qatar_Airways_Logo.svg/300px-Qatar_Airways_Logo.svg.png",
-                checkin: "https://www.qatarairways.com/en/checkin.html",
-                status: "https://www.qatarairways.com/en/flightstatus.html"
-            },
-            {
-                name: "British Airways",
-                logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/British_Airways_Logo.svg/300px-British_Airways_Logo.svg.png",
-                checkin: "https://www.britishairways.com/travel/olchk/public/en_in",
-                status: "https://www.britishairways.com/travel/flightstatus/public/en_in"
-            },
-            {
-                name: "Singapore Airlines",
-                logo: "https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Singapore_Airlines_Logo_2.svg/300px-Singapore_Airlines_Logo_2.svg.png",
-                checkin: "https://www.singaporeair.com/en_UK/check-in/",
-                status: "https://www.singaporeair.com/en_UK/flight-status/"
-            }
-        ];
+        // Airlines data (using local logos from /logo folder)
+const airlines = [
+    {
+        name: "Air India",
+        logo: "logo/Air-India-Logo.png",
+        checkin: "https://www.airindia.com/in/en/manage/web-checkin.html",
+        status: "https://www.airindia.com/in/en/manage/flight-status.html"
+    },
+    {
+        name: "IndiGo",
+        logo: "logo/indigo-vector-logo.png",
+        checkin: "https://www.goindigo.in/web-check-in.html",
+        status: "https://www.goindigo.in/flight-status.html"
+    },
+    {
+        name: "Lufthansa",
+        logo: "logo/lufthansa.jpg",
+        checkin: "https://www.lufthansa.com/in/en/online-check-in",
+        status: "https://www.lufthansa.com/in/en/flight-status"
+    },
+    {
+        name: "SpiceJet",
+        logo: "logo/spice_jet_logo.png",
+        checkin: "https://book.spicejet.com/",
+        status: "https://book.spicejet.com/SearchFlight.aspx"
+    },
+    {
+        name: "Air Asia",
+        logo: "logo/airasia_logo.png",
+        checkin: "https://www.airasia.com/check-in",
+        status: "https://www.airasia.com/flightstatus/en/GB"
+    },
+    {
+        name: "Emirates",
+        logo: "logo/emirates_logo.png",
+        checkin: "https://www.emirates.com/english/manage-booking/online-check-in/",
+        status: "https://www.emirates.com/english/manage-booking/flight-status/"
+    },
+    {
+        name: "Qatar Airways",
+        logo: "logo/qatar_airways_logo.png",
+        checkin: "https://www.qatarairways.com/en/checkin.html",
+        status: "https://www.qatarairways.com/en/flightstatus.html"
+    },
+    {
+        name: "British Airways",
+        logo: "logo/british_airways_logo.png",
+        checkin: "https://www.britishairways.com/travel/olchk/public/en_in",
+        status: "https://www.britishairways.com/travel/flightstatus/public/en_in"
+    },
+    {
+        name: "Singapore Airlines",
+        logo: "logo/singapore_airlines_logo.png",
+        checkin: "https://www.singaporeair.com/en_UK/check-in/",
+        status: "https://www.singaporeair.com/en_UK/flight-status/"
+    }
+];
 
         // DOM elements
         const airlinesGrid = document.getElementById('airlinesGrid');
