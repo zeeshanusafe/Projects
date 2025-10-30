@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebCheck-In - All Airline Web Check-In Shortcut</title>
+    <meta name="description" content="Quick access to official web check-in pages for all major airlines. Skip the lines and check-in online in seconds.">
+    <meta name="keywords" content="web check-in, airline check-in, online check-in, flight check-in, airline">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #34a853;
+            --accent-color: #fbbc05;
+            --dark-color: #202124;
+            --light-color: #f8f9fa;
+            --gray-color: #5f6368;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        
+        .navbar-brand i {
+            color: var(--primary-color);
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #1a73e8, #6c8ef5);
+            color: white;
+            padding: 80px 0 40px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .sky-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+        
+        .cloud:before, .cloud:after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .search-box {
+            border-radius: 50px;
+            padding: 12px 25px;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            font-weight: 600;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--primary-color);
+        }
+        
+        .airline-card {
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .airline-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .airline-logo {
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+        
+        .btn-checkin {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50px;
+            padding: 8px 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-checkin:hover {
+            background-color: #0d62d9;
+            transform: scale(1.05);
+        }
+        
+        .btn-status {
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50px;
+            padding: 8px 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-status:hover {
+            background-color: #2a9849;
+            transform: scale(1.05);
+        }
+        
+        .info-section {
+            background-color: #f8f9fa;
+            padding: 60px 0;
+            margin-top: 60px;
+        }
+        
+        .step-icon {
+            background-color: var(--primary-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin: 0 auto 20px;
+        }
+        
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .luggage-table {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .luggage-table thead th {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 40px 0 20px;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 20px;
+            margin-right: 15px;
+            transition: color 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            color: var(--accent-color);
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .no-results {
+            display: none;
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        .tooltip-icon {
+            color: var(--gray-color);
+            cursor: pointer;
+            margin-left: 5px;
+        }
+        
+        /* Animation for page load */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .card {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .info-section {
+            background-color: #1a1a1a;
+        }
+        
+        body.dark-mode .search-box {
+            background-color: #2d2d2d;
+            color: #e0e0e0;
+        }
+        
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--gray-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        
+        .disclaimer {
+            font-size: 0.8rem;
+            color: #aaa;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-plane-departure me-2"></i>WebCheck-In
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#how-it-works">How It Works</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#airlines">Airlines</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#luggage">Luggage</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="theme-toggle nav-link" id="themeToggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="sky-animation" id="https://drive.google.com/file/d/1DDu63GAbm4q241WBGaHDHOYE5UhTZb8e/view?usp=sharing"></div>
+        <div class="container text-center hero-content">
+            <h1 class="hero-title">All Airline Web Check-In Shortcut</h1>
+            <p class="hero-subtitle">Skip the Lines, Check-in Online</p>
+            
+            <div class="search-container">
+                <div class="input-group mb-4">
+                    <input type="text" class="form-control search-box" id="searchInput" placeholder="Search for an airline...">
+                    <span class="input-group-text bg-white border-0">
+                        <i class="fas fa-search text-muted"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="container mb-5" id="how-it-works">
+        <h2 class="section-title text-center">How It Works</h2>
+        
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3 text-center">
+                <div class="step-icon">
+                    <i class="fas fa-ticket-alt"></i>
+                </div>
+                <h4 class="step-title">Find Your Booking</h4>
+                <p>Locate your booking using your PNR/booking reference, e-ticket number, or frequent flyer number.</p>
+            </div>
+            
+            <div class="col-md-6 col-lg-3 text-center">
+                <div class="step-icon">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <h4 class="step-title">Verify Details</h4>
+                <p>Check your flight details, passenger information, and seat preferences.</p>
+            </div>
+            
+            <div class="col-md-6 col-lg-3 text-center">
+                <div class="step-icon">
+                    <i class="fas fa-suitcase"></i>
+                </div>
+                <h4 class="step-title">Add Baggage</h4>
+                <p>Select and pay for additional baggage if needed. Most airlines allow one cabin bag for free.</p>
+            </div>
+            
+            <div class="col-md-6 col-lg-3 text-center">
+                <div class="step-icon">
+                    <i class="fas fa-qrcode"></i>
+                </div>
+                <h4 class="step-title">Get Boarding Pass</h4>
+                <p>Download your boarding pass or have it emailed to you. You can also save it to your mobile wallet.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Airlines Grid -->
+    <section class="container mb-5" id="airlines">
+        <h2 class="section-title text-center">Select Your Airline</h2>
+        <div class="row g-4" id="airlinesGrid">
+            <!-- Airlines will be populated by JavaScript -->
+        </div>
+        
+        <div class="no-results" id="noResults">
+            <i class="fas fa-search fa-3x mb-3 text-muted"></i>
+            <h3>No airlines found</h3>
+            <p class="text-muted">Try searching with different keywords</p>
+        </div>
+    </section>
+
+    <!-- Luggage Information Section -->
+    <section class="info-section" id="luggage">
+        <div class="container">
+            <h2 class="section-title text-center">Luggage Information</h2>
+            
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-body p-4">
+                            <h4 class="card-title mb-3">Standard Baggage Allowances</h4>
+                            <p class="mb-4">Most airlines have similar baggage policies, but always check with your specific carrier for exact allowances.</p>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-striped luggage-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Airline Type</th>
+                                            <th>Cabin Bag</th>
+                                            <th>Checked Baggage</th>
+                                            <th>Weight Limit</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Economy Class</td>
+                                            <td>1 piece</td>
+                                            <td>1 piece (may vary)</td>
+                                            <td>23kg (50lbs)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Premium Economy</td>
+                                            <td>1-2 pieces</td>
+                                            <td>2 pieces</td>
+                                            <td>23kg each</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Business Class</td>
+                                            <td>2 pieces</td>
+                                            <td>2 pieces</td>
+                                            <td>32kg each</td>
+                                        </tr>
+                                        <tr>
+                                            <td>First Class</td>
+                                            <td>2 pieces</td>
+                                            <td>2-3 pieces</td>
+                                            <td>32kg each</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card border-0 shadow-sm h-100">
+                                <div class="card-body p-4">
+                                    <h5 class="card-title mb-3"><i class="fas fa-exclamation-triangle text-warning me-2"></i>Important Notes</h5>
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2"><i class="fas fa-check text-primary me-2"></i> Check-in luggage dimensions typically should not exceed 158cm (62 inches)</li>
+                                        <li class="mb-2"><i class="fas fa-check text-primary me-2"></i> Cabin baggage usually limited to 55x40x20cm (22x16x8 inches)</li>
+                                        <li class="mb-2"><i class="fas fa-check text-primary me-2"></i> Excess baggage fees can be substantial - check before you travel</li>
+                                        <li class="mb-2"><i class="fas fa-check text-primary me-2"></i> Some items are prohibited in both cabin and checked luggage</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="card border-0 shadow-sm h-100">
+                                <div class="card-body p-4">
+                                    <h5 class="card-title mb-3"><i class="fas fa-lightbulb text-info me-2"></i>Pro Tips</h5>
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2"><i class="fas fa-star text-primary me-2"></i> Weigh your luggage at home to avoid surprises at the airport</li>
+                                        <li class="mb-2"><i class="fas fa-star text-primary me-2"></i> Pre-pay for extra baggage online to save up to 50%</li>
+                                        <li class="mb-2"><i class="fas fa-star text-primary me-2"></i> Consider airline loyalty programs for extra baggage allowances</li>
+                                        <li class="mb-2"><i class="fas fa-star text-primary me-2"></i> Pack essentials and valuables in your carry-on luggage</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 class="mb-3">WebCheck-In</h5>
+                    <p>The easiest way to find and access official airline web check-in pages. Save time and skip the queues.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <div class="footer-links d-flex flex-column">
+                        <a href="#home" class="mb-2">Home</a>
+                        <a href="#how-it-works" class="mb-2">How It Works</a>
+                        <a href="#airlines" class="mb-2">Airlines</a>
+                        <a href="#luggage" class="mb-2">Luggage Info</a>
+                        <a href="#contact" class="mb-2">Contact Us</a>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <h5 class="mb-3">Contact Info</h5>
+                    <p><i class="fas fa-envelope me-2"></i> info@webcheck-in.Org</p>
+                </div>
+            </div>
+            
+            <hr class="my-4">
+            
+            <div class="text-center">
+                <p class="disclaimer">
+                    <strong>Disclaimer:</strong> All airline logos are the property of their respective owners. 
+                    This website is not affiliated with any airline and provides direct links to official airline websites for user convenience.
+                </p>
+                <p>&copy; 2025 WebCheck-In. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Airlines data (with local images)
+        const airlines = [
+            {
+                name: "Air India",
+                logo: "/mnt/data/Air-India-Logo.png",
+                checkin: "https://www.airindia.com/in/en/manage/web-checkin.html",
+                status: "https://www.airindia.com/in/en/manage/flight-status.html"
+            },
+            {
+                name: "IndiGo",
+                logo: "/mnt/data/indigo-vector-logo.png",
+                checkin: "https://www.goindigo.in/web-check-in.html",
+                status: "https://www.goindigo.in/flight-status.html"
+            },
+            {
+                name: "Lufthansa",
+                logo: "/mnt/data/lufthansa.jpg",
+                checkin: "https://www.lufthansa.com/in/en/online-check-in",
+                status: "https://www.lufthansa.com/in/en/flight-status"
+            },
+            {
+                name: "SpiceJet",
+                logo: "/mnt/data/spice_jet_logo.png",
+                checkin: "https://book.spicejet.com/",
+                status: "https://book.spicejet.com/SearchFlight.aspx"
+            },
+            {
+                name: "Air Asia",
+                logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/AirAsia_New_Logo.svg/300px-AirAsia_New_Logo.svg.png",
+                checkin: "https://www.airasia.com/check-in",
+                status: "https://www.airasia.com/flightstatus/en/GB"
+            },
+            {
+                name: "Emirates",
+                logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Emirates_logo.svg/300px-Emirates_logo.svg.png",
+                checkin: "https://www.emirates.com/english/manage-booking/online-check-in/",
+                status: "https://www.emirates.com/english/manage-booking/flight-status/"
+            },
+            {
+                name: "Qatar Airways",
+                logo: "https://upload.wikimedia.org/wikipedia/en/thumb/9/9b/Qatar_Airways_Logo.svg/300px-Qatar_Airways_Logo.svg.png",
+                checkin: "https://www.qatarairways.com/en/checkin.html",
+                status: "https://www.qatarairways.com/en/flightstatus.html"
+            },
+            {
+                name: "British Airways",
+                logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/British_Airways_Logo.svg/300px-British_Airways_Logo.svg.png",
+                checkin: "https://www.britishairways.com/travel/olchk/public/en_in",
+                status: "https://www.britishairways.com/travel/flightstatus/public/en_in"
+            },
+            {
+                name: "Singapore Airlines",
+                logo: "https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Singapore_Airlines_Logo_2.svg/300px-Singapore_Airlines_Logo_2.svg.png",
+                checkin: "https://www.singaporeair.com/en_UK/check-in/",
+                status: "https://www.singaporeair.com/en_UK/flight-status/"
+            }
+        ];
+
+        // DOM elements
+        const airlinesGrid = document.getElementById('airlinesGrid');
+        const searchInput = document.getElementById('searchInput');
+        const noResults = document.getElementById('noResults');
+        const themeToggle = document.getElementById('themeToggle');
+        const skyAnimation = document.getElementById('skyAnimation');
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add airlines to the grid
+            renderAirlines(airlines);
+            
+            // Create sky animation
+            createSkyAnimation();
+            
+            // Add fade-in animation to elements
+            const elementsToAnimate = document.querySelectorAll('.hero-content, .card, .step-icon');
+            elementsToAnimate.forEach(el => {
+                el.classList.add('fade-in');
+            });
+            
+            // Set up smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Check for saved theme preference
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+        });
+
+        // Create sky animation with clouds
+        function createSkyAnimation() {
+            for (let i = 0; i < 15; i++) {
+                const cloud = document.createElement('div');
+                cloud.classList.add('cloud');
+                
+                // Random cloud properties
+                const size = Math.random() * 60 + 30;
+                const left = Math.random() * 100;
+                const top = Math.random() * 80;
+                const opacity = Math.random() * 0.5 + 0.3;
+                const animationDuration = Math.random() * 40 + 60;
+                
+                cloud.style.width = `${size}px`;
+                cloud.style.height = `${size * 0.6}px`;
+                cloud.style.left = `${left}%`;
+                cloud.style.top = `${top}%`;
+                cloud.style.opacity = opacity;
+                
+                // Create cloud shape
+                cloud.style.borderRadius = '50%';
+                
+                cloud.style.animation = `moveCloud ${animationDuration}s linear infinite`;
+                cloud.style.animationDelay = `${Math.random() * 20}s`;
+                
+                skyAnimation.appendChild(cloud);
+            }
+            
+            // Add CSS for cloud movement
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes moveCloud {
+                    0% { transform: translateX(100vw); }
+                    100% { transform: translateX(-100px); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // Render airlines to the grid
+        function renderAirlines(airlinesArray) {
+            airlinesGrid.innerHTML = '';
+            
+            if (airlinesArray.length === 0) {
+                noResults.style.display = 'block';
+                return;
+            }
+            
+            noResults.style.display = 'none';
+            
+            airlinesArray.forEach(airline => {
+                const col = document.createElement('div');
+                col.className = 'col-sm-6 col-md-4 col-lg-3';
+                
+                col.innerHTML = `
+                    <div class="card airline-card h-100">
+                        <div class="card-body text-center p-4">
+                            <img src="${airline.logo}" alt="${airline.name} Logo" class="airline-logo">
+                            <h5 class="card-title mb-3">${airline.name}</h5>
+                            <div class="d-grid gap-2">
+                                <a href="${airline.checkin}" target="_blank" class="btn btn-checkin">
+                                    <i class="fas fa-check-circle me-1"></i> Web Check-In
+                                </a>
+                                <a href="${airline.status}" target="_blank" class="btn btn-status">
+                                    <i class="fas fa-plane me-1"></i> Flight Status
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                airlinesGrid.appendChild(col);
+            });
+        }
+
+        // Search functionality
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+            
+            if (searchTerm === '') {
+                renderAirlines(airlines);
+                return;
+            }
+            
+            const filteredAirlines = airlines.filter(airline => 
+                airline.name.toLowerCase().includes(searchTerm)
+            );
+            
+            renderAirlines(filteredAirlines);
+        });
+
+        // Dark/Light mode toggle
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('darkMode', 'enabled');
+                this.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                localStorage.setItem('darkMode', 'disabled');
+                this.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        });
+    </script>
+</body>
+</html>
